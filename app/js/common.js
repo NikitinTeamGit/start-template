@@ -1,32 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-	// lazy load
-	setTimeout(function () {
-		$(".js-bg").each(function () {
-			$(this).css('background-image', 'url(' + $(this).data("bg") + ')');
-		});
-		$(".js-img").each(function () {
-			$(this).attr('src', $(this).data("src"));
-		});
-	}, 200);
+
 	// loader
 	setTimeout(function () {
-		$('body').removeClass('loaded');
+		document.querySelector('body').classList.remove('loaded');
 	}, 400);
-});
 
-/* viewport width */
-function viewport() {
-	var e = window,
-		a = 'inner';
-	if (!('innerWidth' in window)) {
-		a = 'client';
-		e = document.documentElement || document.body;
-	}
-	return { width: e[a + 'Width'], height: e[a + 'Height'] }
-};
-/* viewport width */
+	// lazy load
+	// setTimeout(function () {
+	// 	$(".js-bg").each(function () {
+	// 		$(this).css('background-image', 'url(' + $(this).data("bg") + ')');
+	// 	});
+	// 	$(".js-img").each(function () {
+	// 		$(this).attr('src', $(this).data("src"));
+	// 	});
+	// }, 200);
 
-(function () {
+
 
 	/* components */
 
@@ -76,21 +65,41 @@ function viewport() {
 
 	/* components */
 
-	//отмена перетаскивания картинок
-	$("img, a").on("dragstart", function (e) {
-		e.preventDefault();
-	});
+	//prevent drag img and a
+	const imagesAndLinks = document.querySelectorAll('img, a');
+	if (imagesAndLinks) {
+    imagesAndLinks.forEach(function (item, i, arr) {
+			item.addEventListener('dragstart', function (e) {
+				e.preventDefault();
+			})
+    });
+  }
 
-}());
+	
+	const handlerResize = function () {
+		let viewport_wid = viewport().width;
+		let viewport_height = viewport().height;
 
-var handler = function () {
-	var viewport_wid = viewport().width;
-	var viewport_height = viewport().height;
+		// if (viewport_wid <= 991) {
+			
+		// }
+	}
 
-	// if (viewport_wid <= 991) {
+	window.addEventListener('load', handlerResize);
+	window.addEventListener('resize', handlerResize);
 
-	// }
-}
 
-$(window).bind('load', handler);
-$(window).bind('resize', handler);
+});
+
+/* viewport width */
+function viewport() {
+	let e = window,
+		a = 'inner';
+	if (!('innerWidth' in window)) {
+		a = 'client';
+		e = document.documentElement || document.body;
+	}
+	return { width: e[a + 'Width'], height: e[a + 'Height'] }
+};
+/* viewport width */
+
