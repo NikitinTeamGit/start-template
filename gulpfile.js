@@ -108,7 +108,7 @@ const copyImg = (cb) => {
 };
 
 const copySupport = (cb) => {
-	return gulp.src(['.htaccess', 'manifest.json', 'browserconfig.xml'])
+	return gulp.src(['manifest.json', 'browserconfig.xml'])
 		.pipe(gulp.dest('build/'));
 	cb();
 };
