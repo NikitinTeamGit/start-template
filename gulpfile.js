@@ -166,7 +166,7 @@ const mainCssBuild = (cb) => {
 };
 
 const compressImg = (cb) => {
-	return gulp.src('build/img/main/**/*.{png,jpg}')
+	return gulp.src('build/img/**/*.{png,jpg}')
 		.pipe(plumber())
 		.pipe(tinypng({
 			key: 'DJWdZ2G4jL51dl3S2k7SdHFVlhc960DN',
@@ -174,7 +174,7 @@ const compressImg = (cb) => {
 			parallelMax: 30,
 			sameDest: true
 		}))
-		.pipe(gulp.dest('build/img/main/'));
+		.pipe(gulp.dest('build/img/'));
 	cb();
 };
 
@@ -185,5 +185,6 @@ const removeModules = (cb) => {
 };
 
 
+exports.compressImages = gulp.series(compressImg);
 exports.production = gulp.series(mainJsBuild, mainCssBuild, compressImg, removeModules);
 /* End Production */
